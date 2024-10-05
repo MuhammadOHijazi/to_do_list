@@ -46,20 +46,17 @@ This is a simple and intuitive **To-do list application** built using **Flutter*
    ```bash
    git clone https://github.com/your-username/my-todo-mobile-app.git
 
-### Project Structure:
+## 📂 Project Structure
 
-my-todo-mobile-app/
-│
-├── lib/
-│   ├── main.dart          # Main entry point of the application
-│   ├── screens/           # Contains UI screens (TodoList, AddTask, etc.)
-│   ├── models/            # Contains the task model
-│   ├── widgets/           # Contains custom widgets used throughout the app
-│   └── utils/             # Utility classes and functions (e.g., date formatter)
-│
-├── assets/
-│   ├── images/            # App icons, logos, etc.
-│   └── screenshots/       # Screenshots for the README file
-│
-└── pubspec.yaml           # Flutter and project dependencies
+Here's a high-level overview of the project structure:
 
+my-todo-mobile-app/ ├── 📁 lib/ # Contains core application files │ ├── 📄 main.dart # Main entry point of the app │ ├── 📁 screens/ # Screens like TodoList and AddTask │ ├── 📁 models/ # Models (e.g., Task model) │ ├── 📁 widgets/ # Reusable widgets (e.g., buttons, cards) │ └── 📁 utils/ # Utility functions (date formatting, etc.) │ ├── 📁 assets/ # Static assets like images │ ├── 📁 images/ # Icons, logos, etc. │ └── 📁 screenshots/ # Screenshots for documentation │ └── 📄 pubspec.yaml # Project dependencies and metadata
+
+
+
+### Key Files:
+
+- **`main.dart`**: The entry point of the application.
+- **`TodoList.dart`**: Displays the list of tasks.
+- **`AddTask.dart`**: A screen for adding new tasks.
+- **`task_model.dart`**: Defines the structure of a task in the app.
