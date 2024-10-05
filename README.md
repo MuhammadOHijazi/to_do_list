@@ -12,7 +12,8 @@ This is a simple and intuitive **To-do list application** built using **Flutter*
 
 ## Screenshots
 
-![App Screens](![image](![image](https://github.com/user-attachments/assets/9388b894-d2f6-4f8f-9280-1bff80db6900)
+![App Screens] 
+(![image](https://github.com/user-attachments/assets/9388b894-d2f6-4f8f-9280-1bff80db6900)
 
 
 ## Getting Started
