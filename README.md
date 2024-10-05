@@ -1,4 +1,4 @@
-# My Todo Mobile App
+![image](https://github.com/user-attachments/assets/75eb128e-98fc-41fa-b759-58a1cf7306b7)# My Todo Mobile App
 
 This is a simple and intuitive **To-do list application** built using **Flutter**. The app allows users to easily manage their tasks by adding, categorizing, and marking them as complete. Users can track upcoming and completed tasks in a clean and organized interface.
 
@@ -12,8 +12,8 @@ This is a simple and intuitive **To-do list application** built using **Flutter*
 
 ## Screenshots
 
-![App Screens](![image](https://github.com/user-attachments/assets/b852ac4a-a316-442a-baa9-4f3c5e8c322f)
-)
+![App Screens](![image](![image](https://github.com/user-attachments/assets/9388b894-d2f6-4f8f-9280-1bff80db6900)
+
 
 ## Getting Started
 
