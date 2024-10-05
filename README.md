@@ -30,3 +30,36 @@ This is a simple and intuitive **To-do list application** built using **Flutter*
 
    ```bash
    git clone https://github.com/your-username/my-todo-mobile-app.git
+
+2. Navigate to the project directory::
+
+   ```bash
+   cd my-todo-mobile-app
+
+3. Install dependencies:
+
+   ```bash
+   flutter pub get
+   
+4. run the app on an emulator or physical device:
+
+   ```bash
+   git clone https://github.com/your-username/my-todo-mobile-app.git
+
+### Project Structure:
+
+my-todo-mobile-app/
+│
+├── lib/
+│   ├── main.dart          # Main entry point of the application
+│   ├── screens/           # Contains UI screens (TodoList, AddTask, etc.)
+│   ├── models/            # Contains the task model
+│   ├── widgets/           # Contains custom widgets used throughout the app
+│   └── utils/             # Utility classes and functions (e.g., date formatter)
+│
+├── assets/
+│   ├── images/            # App icons, logos, etc.
+│   └── screenshots/       # Screenshots for the README file
+│
+└── pubspec.yaml           # Flutter and project dependencies
+
