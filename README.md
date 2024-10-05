@@ -50,7 +50,17 @@ This is a simple and intuitive **To-do list application** built using **Flutter*
 
 Here's a high-level overview of the project structure:
 
-my-todo-mobile-app/ ├── 📁 lib/ # Contains core application files │ ├── 📄 main.dart # Main entry point of the app │ ├── 📁 screens/ # Screens like TodoList and AddTask │ ├── 📁 models/ # Models (e.g., Task model) │ ├── 📁 widgets/ # Reusable widgets (e.g., buttons, cards) │ └── 📁 utils/ # Utility functions (date formatting, etc.) │ ├── 📁 assets/ # Static assets like images │ ├── 📁 images/ # Icons, logos, etc. │ └── 📁 screenshots/ # Screenshots for documentation │ └── 📄 pubspec.yaml # Project dependencies and metadata
+my-todo-mobile-app/ 
+├── 📁 lib/ # Contains core application files │ 
+├── 📄 main.dart # Main entry point of the app │ 
+├── 📁 screens/ # Screens like TodoList and AddTask │ 
+├── 📁 models/ # Models (e.g., Task model) │ 
+├── 📁 widgets/ # Reusable widgets (e.g., buttons, cards)│
+└── 📁 utils/ # Utility functions (date formatting, etc.) │ 
+├── 📁 assets/ # Static assets like images │ 
+├── 📁 images/ # Icons, logos, etc. │ 
+└── 📁 screenshots/ # Screenshots for documentation │
+└── 📄 pubspec.yaml # Project dependencies and metadata
 
 
 
