@@ -15,7 +15,7 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
   }
 
   TextEditingController dateController = TextEditingController();
-  TextEditingController TimeController = TextEditingController();
+  TextEditingController timeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -261,7 +261,7 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                           ),
                           const SizedBox(height: 10),
                           TextFormField(
-                            controller: TimeController,
+                            controller: timeController,
                             onTap: (){
                               selectTime();
                             },
@@ -360,7 +360,7 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
 
    if (timePicked != null){
      setState((){
-       TimeController.text = "${timePicked.hour} : ${timePicked.minute}";
+       timeController.text = "${timePicked.hour} : ${timePicked.minute}";
      });
    }
 
