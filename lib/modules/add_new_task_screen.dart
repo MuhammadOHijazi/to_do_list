@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/modules/my_to_do_list_screen.dart';
 
+import '../utils/database.dart';
+
 class AddNewTaskScreen extends StatefulWidget {
   const AddNewTaskScreen({super.key});
 
@@ -18,6 +20,7 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
   TextEditingController dateController  = TextEditingController();
   TextEditingController timeController  = TextEditingController();
   TextEditingController titleController = TextEditingController();
+  TextEditingController notesController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -335,6 +338,7 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
               Padding(
                 padding: const EdgeInsetsDirectional.symmetric(horizontal: 10),
                 child: TextFormField(
+                  controller: notesController,
                   minLines: 5,
                   maxLines: 10,
                   decoration: InputDecoration(
@@ -359,9 +363,15 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                   width: double.infinity, // Makes the button take the full width
                   height: 50, // Sets a fixed height for the button
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async{
                       // ToDO: Fix and pass the database to be able to insert into it
-                      //database.insertToDatabase();
+                      await DataBase().insertToDatabase(
+                        titleController.text,
+                        "category", // You may need to adjust this to get the selected category
+                        dateController.text,
+                        timeController.text,
+                        notesController.text, // Add this to handle notes
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xff4A3780), // Set button color

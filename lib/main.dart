@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list/utils/database.dart';
 import 'modules/my_to_do_list_screen.dart';
 
 void main() {
@@ -14,12 +13,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void initState() {
     super.initState();
-    DataBase database = DataBase();
-    database.createDatabase();
   }
 
   // This widget is the root of your application.
