@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_list/modules/my_to_do_list_screen.dart';
 
 class AddNewTaskScreen extends StatefulWidget {
   const AddNewTaskScreen({super.key});
@@ -113,7 +114,11 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                                   Icons.close,
                                   color: Color(0xff4A3780),
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(
+                                      builder:(context)=> const MyToDoList()
+                                  ));
+                                },
                               ),
                             ),
                             const SizedBox(width: 75),

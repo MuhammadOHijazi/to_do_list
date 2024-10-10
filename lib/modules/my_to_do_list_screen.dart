@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'add_new_task_screen.dart';
+
 class MyToDoList extends StatefulWidget {
   const MyToDoList({super.key});
 
@@ -395,6 +397,33 @@ class MyToDoListState extends State<MyToDoList> {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.all(20),
+                    child: SizedBox(
+                      width: double.infinity, // Makes the button take the full width
+                      height: 50, // Sets a fixed height for the button
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder:(context)=> const AddNewTaskScreen()
+                          ));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff4A3780), // Set button color
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25), // Rounded corners
+                          ),
+                        ),
+                        child: const Text(
+                          "Add new Task",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
