@@ -15,8 +15,9 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
     super.initState();
   }
 
-  TextEditingController dateController = TextEditingController();
-  TextEditingController timeController = TextEditingController();
+  TextEditingController dateController  = TextEditingController();
+  TextEditingController timeController  = TextEditingController();
+  TextEditingController titleController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -146,16 +147,32 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
               Padding(
                 padding: const EdgeInsetsDirectional.symmetric(horizontal: 10),
                 child: TextFormField(
+                  controller: titleController,
                   decoration: InputDecoration(
                     hintText: "Task Title",
                     border: OutlineInputBorder(
                       gapPadding: 5,
                       borderRadius: BorderRadius.circular(5),
                     ),
+                    focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xff4A3780),
+                            width: 3,
+                          )
+                      )
+
                   ),
+                  validator: (value){
+                    if (value == null || value.isEmpty){
+                      return 'Task Must Have a name';
+                    }
+                    return null;
+                  },
                 ),
               ),
               const SizedBox(height: 24),
+              // ----------------------------------------------------------------
+              // TODO: make category get colored when it's picked
               Row(
                 children: [
                   const Padding(
@@ -243,6 +260,12 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                                 )
                               )
                             ),
+                            validator: (value){
+                              if (value == null || value.isEmpty){
+                                return 'Task Must Have a Date';
+                              }
+                              return null;
+                            },
                             onTap: (){
                               selectDate();
                             },
@@ -266,6 +289,12 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                           ),
                           const SizedBox(height: 10),
                           TextFormField(
+                            validator: (value){
+                              if (value == null || value.isEmpty){
+                                return 'Task Must Have a Time';
+                              }
+                              return null;
+                            },
                             controller: timeController,
                             onTap: (){
                               selectTime();
@@ -310,9 +339,16 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                   maxLines: 10,
                   decoration: InputDecoration(
                     hintText: "Notes",
+                    focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xff4A3780),
+                          width: 3,
+                        )
+                    ),
                     border: OutlineInputBorder(
                       gapPadding: 5,
                       borderRadius: BorderRadius.circular(5),
+
                     ),
                   ),
                 ),
@@ -323,7 +359,10 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                   width: double.infinity, // Makes the button take the full width
                   height: 50, // Sets a fixed height for the button
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // ToDO: Fix and pass the database to be able to insert into it
+                      //database.insertToDatabase();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xff4A3780), // Set button color
                       shape: RoundedRectangleBorder(
@@ -365,7 +404,8 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
 
    if (timePicked != null){
      setState((){
-       timeController.text = "${timePicked.hour} : ${timePicked.minute}";
+       timeController.text = "${timePicked.hourOfPeriod} : ${timePicked.minute}  ${timePicked.period.name}";
+
      });
    }
 
