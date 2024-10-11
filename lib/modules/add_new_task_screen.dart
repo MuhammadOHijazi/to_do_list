@@ -380,16 +380,18 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                           dateController.text,
                           timeController.text,
                           notesController.text,
-                          "not Completed",
+                          "0",
                         )
                             .then((value) async {
                           await ToDoDataBase().getDataFromDatabase();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const MyToDoList()));
                         });
                       }
+                      setState(() {
+                      });
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyToDoList()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:

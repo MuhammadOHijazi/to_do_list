@@ -20,19 +20,20 @@ class ToDoDataBase {
   Future<Database?> _initDatabase() async {
     return await openDatabase(
       'todo.db',
-      version: 2,
+      version: 3,
       onCreate: (database, version) async {
         if (kDebugMode) {
           print('Database created');
         }
         await database.execute(
-            'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, category TEXT, Date TEXT, Time TEXT, notes TEXT, status TEXT)');
+            'CREATE TABLE tasks (id INTEGER PRIMARY KEY,'' taskName TEXT,'' category TEXT,'' taskDate TEXT,'' taskTime TEXT,'' notes TEXT,''completed TEXT)'
+        );
       },
       onUpgrade: (db, oldVersion, newVersion) async {
         if (oldVersion < newVersion) {
           await db.execute('DROP TABLE IF EXISTS tasks');
           await db.execute(
-              'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, category TEXT, Date TEXT, Time TEXT, notes TEXT, status TEXT)');
+              'CREATE TABLE tasks (id INTEGER PRIMARY KEY,'' taskName TEXT,'' category TEXT,'' taskDate TEXT,'' taskTime TEXT,'' notes TEXT,''completed TEXT)');
           if (kDebugMode) {
             print('Database upgraded and recreated');
           }
@@ -52,8 +53,15 @@ class ToDoDataBase {
     final db = await database;
     return await db?.transaction((txn) async {
       await txn.rawInsert(
-          'INSERT INTO tasks(title, category, Date, Time, Notes, status) VALUES(?, ?, ?, ?, ?, ?)',
-          [title, category, date, time, notes, status]); // Six values for six columns
+          'INSERT INTO tasks(taskName, category, taskDate, taskTime, notes, completed) VALUES(?, ?, ?, ?, ?, ?)',
+          [
+            title,
+            category,
+            date,
+            time,
+            notes,
+            status
+          ]);
     }).then((value) {
       if (kDebugMode) {
         print("\n$value inserted successfully\n");
@@ -65,9 +73,8 @@ class ToDoDataBase {
     });
   }
 
-
   Future<void> getDataFromDatabase() async {
-    final db = await database;  // Access the database instance
+    final db = await database; // Access the database instance
     if (db != null) {
       List<Map>? tasks = await db.rawQuery('SELECT * FROM tasks');
       if (tasks.isNotEmpty) {
@@ -87,7 +94,4 @@ class ToDoDataBase {
       }
     }
   }
-
-
-
 }
