@@ -46,12 +46,15 @@ class MyToDoListState extends State<MyToDoList> {
         child: Column(
           children: [
             upperDesign(),
+
+
             Expanded(
               child: Padding(
                 padding: const EdgeInsetsDirectional.symmetric(horizontal: 12),
                 child: ListView.separated(
                   itemBuilder: (context, index) {
                     final task = tasks[index];
+                    // ToDo: Fix the TaskItem completed issue
                     return TaskItem(
                       taskName: task['taskName'],
                       taskTime: task['taskTime'],
@@ -94,6 +97,7 @@ class MyToDoListState extends State<MyToDoList> {
                   itemBuilder: (context, index) {
                     // Filter and show only completed tasks
                     final task = tasks[index];
+                    // ToDo: Fix the TaskItem completed issue
                     return TaskItem(
                       taskName: task['taskName'],
                       taskTime: task['taskTime'],
