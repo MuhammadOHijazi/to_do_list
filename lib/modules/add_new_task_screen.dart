@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/modules/my_to_do_list_screen.dart';
-
+import '../Shared/Components/constant.dart';
 import '../utils/database.dart';
 
 class AddNewTaskScreen extends StatefulWidget {
@@ -20,7 +20,7 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
   TextEditingController timeController = TextEditingController();
   TextEditingController titleController = TextEditingController();
   TextEditingController notesController = TextEditingController();
-  var Category = "";
+  var category = "";
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +34,8 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                   Container(
                     height: 100,
                     width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: Color(0xff4A3780),
+                    decoration:  BoxDecoration(
+                      color: primaryColor,
                       shape: BoxShape.rectangle,
                     ),
                     child: const Column(
@@ -69,9 +69,9 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                         Container(
                           height: 150,
                           width: 150,
-                          decoration: const BoxDecoration(
+                          decoration:  BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Color(0xff4A3780),
+                            color: primaryColor,
                           ),
                         ),
                       ],
@@ -94,9 +94,9 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                         Container(
                           height: 65,
                           width: 65,
-                          decoration: const BoxDecoration(
+                          decoration:  BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Color(0xff4A3780),
+                            color: primaryColor,
                           ),
                         ),
                       ],
@@ -114,9 +114,9 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                                 color: Colors.white,
                               ),
                               child: IconButton(
-                                icon: const Icon(
+                                icon:  Icon(
                                   Icons.close,
-                                  color: Color(0xff4A3780),
+                                  color: primaryColor,
                                 ),
                                 onPressed: () {
                                   Navigator.push(
@@ -159,9 +159,9 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                         gapPadding: 5,
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      focusedBorder: const OutlineInputBorder(
+                      focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                        color: Color(0xff4A3780),
+                        color: primaryColor,
                         width: 3,
                       ))),
                   validator: (value) {
@@ -191,52 +191,52 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                   ElevatedButton(
                     onPressed: () async {
                       setState(() {
-                        Category = "article";
+                        category = "article";
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Category == "article"
+                      backgroundColor: category == "article"
                           ? const Color(0xffDBECF6)
                           : Colors.white, // Set button color
                       shape: const CircleBorder(),
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.article_outlined,
-                      color: Color(0xff194A66),
+                      color: articleColor,
                     ),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        Category = "task";
+                        category = "task";
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Category == "task"
+                      backgroundColor: category == "task"
                           ? const Color(0xffE7E2F3)
                           : Colors.white,
                       shape: const CircleBorder(),
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.event,
-                      color: Color(0xff4A3780),
+                      color: primaryColor,
                     ),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        Category = "goal";
+                        category = "goal";
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Category == "goal"
+                      backgroundColor: category == "goal"
                           ? const Color(0xffFEF5D3)
                           : Colors.white,
                       shape: const CircleBorder(),
                     ),
-                    child: const Icon(
+                    child:  Icon(
                       Icons.emoji_events_outlined,
-                      color: Color(0xff403100),
+                      color: eventColor,
                     ),
                   ),
                 ],
@@ -266,9 +266,9 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5),
                                 ),
-                                focusedBorder: const OutlineInputBorder(
+                                focusedBorder:  OutlineInputBorder(
                                     borderSide: BorderSide(
-                                  color: Color(0xff4A3780),
+                                  color: primaryColor,
                                   width: 3,
                                 ))),
                             validator: (value) {
@@ -316,9 +316,9 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5),
                                 ),
-                                focusedBorder: const OutlineInputBorder(
+                                focusedBorder:  OutlineInputBorder(
                                     borderSide: BorderSide(
-                                  color: Color(0xff4A3780),
+                                  color: primaryColor,
                                   width: 3,
                                 ))),
                           ),
@@ -349,9 +349,9 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                   maxLines: 10,
                   decoration: InputDecoration(
                     hintText: "Notes",
-                    focusedBorder: const OutlineInputBorder(
+                    focusedBorder:  OutlineInputBorder(
                         borderSide: BorderSide(
-                      color: Color(0xff4A3780),
+                      color: primaryColor,
                       width: 3,
                     )),
                     border: OutlineInputBorder(
@@ -373,16 +373,17 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                           dateController.text.isNotEmpty &&
                           timeController.text.isNotEmpty) {
                         // Insert data into the database
-                        await DataBase()
+                        await ToDoDataBase()
                             .insertToDatabase(
                           titleController.text,
-                          Category, // You can modify this to select categories
+                          category, // You can modify this to select categories
                           dateController.text,
                           timeController.text,
                           notesController.text,
+                          "not Completed",
                         )
                             .then((value) async {
-                          // await todoDatabase.getDataFromDatabase();
+                          await ToDoDataBase().getDataFromDatabase();
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -392,7 +393,7 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
-                          const Color(0xff4A3780), // Set button color
+                           primaryColor, // Set button color
                       shape: RoundedRectangleBorder(
                         borderRadius:
                             BorderRadius.circular(25), // Rounded corners
@@ -424,6 +425,7 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
       });
     }
   }
+
   Future<void> selectTime() async {
     TimeOfDay? timePicked =
         await showTimePicker(context: context, initialTime: TimeOfDay.now());
@@ -435,5 +437,4 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
       });
     }
   }
-
 }
