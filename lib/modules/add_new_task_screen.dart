@@ -11,16 +11,16 @@ class AddNewTaskScreen extends StatefulWidget {
 }
 
 class AddNewTaskScreenState extends State<AddNewTaskScreen> {
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
   }
 
-  TextEditingController dateController  = TextEditingController();
-  TextEditingController timeController  = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  TextEditingController timeController = TextEditingController();
   TextEditingController titleController = TextEditingController();
   TextEditingController notesController = TextEditingController();
+  var Category = "";
 
   @override
   Widget build(BuildContext context) {
@@ -119,9 +119,11 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                                   color: Color(0xff4A3780),
                                 ),
                                 onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(
-                                      builder:(context)=> const MyToDoList()
-                                  ));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const MyToDoList()));
                                 },
                               ),
                             ),
@@ -152,21 +154,18 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                 child: TextFormField(
                   controller: titleController,
                   decoration: InputDecoration(
-                    hintText: "Task Title",
-                    border: OutlineInputBorder(
-                      gapPadding: 5,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    focusedBorder: const OutlineInputBorder(
+                      hintText: "Task Title",
+                      border: OutlineInputBorder(
+                        gapPadding: 5,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Color(0xff4A3780),
-                            width: 3,
-                          )
-                      )
-
-                  ),
-                  validator: (value){
-                    if (value == null || value.isEmpty){
+                        color: Color(0xff4A3780),
+                        width: 3,
+                      ))),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
                       return 'Task Must Have a name';
                     }
                     return null;
@@ -191,38 +190,51 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                       ),
                     ),
                   ),
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xffDBECF6),
+                  ElevatedButton(
+                    onPressed: () async {
+                      setState(() {
+                        Category = "article";
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Category == "article"
+                          ? const Color(0xffDBECF6)
+                          : Colors.white, // Set button color
+                      shape: const CircleBorder(),
                     ),
                     child: const Icon(
                       Icons.article_outlined,
                       color: Color(0xff194A66),
                     ),
                   ),
-                  const SizedBox(width: 15),
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xffE7E2F3),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        Category = "task";
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Category == "task"
+                          ? const Color(0xffE7E2F3)
+                          : Colors.white,
+                      shape: const CircleBorder(),
                     ),
                     child: const Icon(
                       Icons.event,
                       color: Color(0xff4A3780),
                     ),
                   ),
-                  const SizedBox(width: 15),
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xffFEF5D3),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        Category = "goal";
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Category == "goal"
+                          ? const Color(0xffFEF5D3)
+                          : Colors.white,
+                      shape: const CircleBorder(),
                     ),
                     child: const Icon(
                       Icons.emoji_events_outlined,
@@ -251,25 +263,23 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                           TextFormField(
                             controller: dateController,
                             decoration: InputDecoration(
-                              hintText: "Date",
-                              suffixIcon: const Icon(Icons.date_range),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              focusedBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color(0xff4A3780),
+                                hintText: "Date",
+                                suffixIcon: const Icon(Icons.date_range),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                  color: Color(0xff4A3780),
                                   width: 3,
-                                )
-                              )
-                            ),
-                            validator: (value){
-                              if (value == null || value.isEmpty){
+                                ))),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
                                 return 'Task Must Have a Date';
                               }
                               return null;
                             },
-                            onTap: (){
+                            onTap: () {
                               selectDate();
                             },
                           ),
@@ -292,29 +302,27 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                           ),
                           const SizedBox(height: 10),
                           TextFormField(
-                            validator: (value){
-                              if (value == null || value.isEmpty){
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
                                 return 'Task Must Have a Time';
                               }
                               return null;
                             },
                             controller: timeController,
-                            onTap: (){
+                            onTap: () {
                               selectTime();
                             },
                             decoration: InputDecoration(
-                              suffixIcon: const Icon(Icons.access_time),
-                              hintText: "Time",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                              ),
+                                suffixIcon: const Icon(Icons.access_time),
+                                hintText: "Time",
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
                                 focusedBorder: const OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0xff4A3780),
-                                      width: 3,
-                                    )
-                                )
-                            ),
+                                  color: Color(0xff4A3780),
+                                  width: 3,
+                                ))),
                           ),
                         ],
                       ),
@@ -345,14 +353,12 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                     hintText: "Notes",
                     focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0xff4A3780),
-                          width: 3,
-                        )
-                    ),
+                      color: Color(0xff4A3780),
+                      width: 3,
+                    )),
                     border: OutlineInputBorder(
                       gapPadding: 5,
                       borderRadius: BorderRadius.circular(5),
-
                     ),
                   ),
                 ),
@@ -360,23 +366,38 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
               Padding(
                 padding: const EdgeInsetsDirectional.all(20),
                 child: SizedBox(
-                  width: double.infinity, // Makes the button take the full width
+                  width:
+                      double.infinity, // Makes the button take the full width
                   height: 50, // Sets a fixed height for the button
                   child: ElevatedButton(
-                    onPressed: () async{
-                      // ToDO: Fix and pass the database to be able to insert into it
-                      await DataBase().insertToDatabase(
-                        titleController.text,
-                        "category", // You may need to adjust this to get the selected category
-                        dateController.text,
-                        timeController.text,
-                        notesController.text, // Add this to handle notes
-                      );
+                    onPressed: () async {
+                      if (titleController.text.isNotEmpty &&
+                          dateController.text.isNotEmpty &&
+                          timeController.text.isNotEmpty) {
+                        // Insert data into the database
+                        await DataBase()
+                            .insertToDatabase(
+                          titleController.text,
+                          Category, // You can modify this to select categories
+                          dateController.text,
+                          timeController.text,
+                          notesController.text,
+                        )
+                            .then((value) async {
+                          // await todoDatabase.getDataFromDatabase();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MyToDoList()));
+                        });
+                      }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff4A3780), // Set button color
+                      backgroundColor:
+                          const Color(0xff4A3780), // Set button color
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25), // Rounded corners
+                        borderRadius:
+                            BorderRadius.circular(25), // Rounded corners
                       ),
                     ),
                     child: const Text(
@@ -396,32 +417,26 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
     );
   }
 
-  Future<void>selectDate() async{
+  Future<void> selectDate() async {
     DateTime? picked = await showDatePicker(
-        context: context,
-        firstDate: DateTime.now(),
-        lastDate: DateTime(20000)
-    );
-    if (picked != null){
-      setState((){
-      dateController.text = picked.toString().split(" ")[0];
+        context: context, firstDate: DateTime.now(), lastDate: DateTime(20000));
+    if (picked != null) {
+      setState(() {
+        dateController.text = picked.toString().split(" ")[0];
       });
     }
   }
-  Future<void>selectTime() async{
-   TimeOfDay? timePicked =  await showTimePicker(context: context,
-        initialTime: TimeOfDay.now());
 
-   if (timePicked != null){
-     setState((){
-       timeController.text = "${timePicked.hourOfPeriod} : ${timePicked.minute}  ${timePicked.period.name}";
+  Future<void> selectTime() async {
+    TimeOfDay? timePicked =
+        await showTimePicker(context: context, initialTime: TimeOfDay.now());
 
-     });
-   }
-
-
+    if (timePicked != null) {
+      setState(() {
+        timeController.text =
+            "${timePicked.hourOfPeriod} : ${timePicked.minute}  ${timePicked.period.name}";
+      });
+    }
   }
 
 }
-
-

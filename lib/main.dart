@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_list/utils/database.dart';
 import 'modules/my_to_do_list_screen.dart';
 
-void main() {
+void main() async{
   runApp(const MyApp());
 }
 
