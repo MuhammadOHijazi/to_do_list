@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../Shared/Components/task_item.dart';
 import 'add_new_task_screen.dart';
 
 class MyToDoList extends StatefulWidget {
@@ -10,10 +10,8 @@ class MyToDoList extends StatefulWidget {
 }
 
 class MyToDoListState extends State<MyToDoList> {
-
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
   }
 
@@ -34,10 +32,12 @@ class MyToDoListState extends State<MyToDoList> {
       "November",
       "December"
     ];
+
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
+            // Header section (date and title)
             Stack(
               children: [
                 Container(
@@ -46,44 +46,16 @@ class MyToDoListState extends State<MyToDoList> {
                   decoration: const BoxDecoration(
                     color: Color(0xff4A3780),
                     shape: BoxShape.rectangle,
-                    // boxShadow: [
-                    //   BoxShadow(
-                    //     color: Colors.grey,
-                    //     spreadRadius: 50,
-                    //     blurRadius: 70,
-                    //     offset: Offset(1, 3), // changes position of shadow
-                    //   ),
-                    // ],
                   ),
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsetsDirectional.all(10),
-                        child: Row(
-                          children: [
-                            Container(
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                              ),
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_back_ios,
-                                  color: Color(0xff4A3780),
-                                ),
-                                onPressed: () {},
-                              ),
-                            ),
-                            const SizedBox(width: 75),
-                            Text(
-                              "${monthList[DateTime.now().month]} ${DateTime.now().day}, ${DateTime.now().year}",
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 18.5,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                      const SizedBox(height: 20),
+                      Text(
+                        "${monthList[DateTime.now().month]} ${DateTime.now().day}, ${DateTime.now().year}",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.5,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -98,6 +70,7 @@ class MyToDoListState extends State<MyToDoList> {
                     ],
                   ),
                 ),
+                // Positioned circular decorations
                 Positioned(
                   left: -100,
                   bottom: -90,
@@ -150,127 +123,39 @@ class MyToDoListState extends State<MyToDoList> {
                 ),
               ],
             ),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    height: 80,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      color: Colors.white70,
-                      borderRadius: BorderRadius.circular(10),
+            const Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // Active tasks section
+                    TaskItem(
+                      taskName: "Study lesson",
+                      taskTime: "4:00 PM",
+                      completed: false,
+                      icon: Icons.article_outlined,
+                      iconColor: Color(0xffDBECF6),
                     ),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.all(10),
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color(0xffDBECF6),
-                            ),
-                            child: const Icon(
-                              Icons.article_outlined,
-                              color: Color(0xff194A66),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        const Text(
-                          "Task Name",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                    TaskItem(
+                      taskName: "Run 5k",
+                      taskTime: "5:00 PM",
+                      completed: false,
+                      icon: Icons.emoji_events_outlined,
+                      iconColor: Color(0xffFEF5D3),
                     ),
-                  ),
-                  Container(
-                    height: 80,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      color: Colors.white70,
-                      borderRadius: BorderRadius.circular(10),
+                    TaskItem(
+                      taskName: "Go to party",
+                      taskTime: "10:00 PM",
+                      completed: false,
+                      icon: Icons.event,
+                      iconColor: Color(0xffE7E2F3),
                     ),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.all(10),
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color(0xffFEF5D3),
-                            ),
-                            child: const Icon(
-                              Icons.emoji_events_outlined,
-                              color: Color(0xff403100),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        const Text(
-                          "Task Name",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 80,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      color: Colors.white70,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.all(10),
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color(0xffE7E2F3),
-                            ),
-                            child: const Icon(
-                              Icons.event,
-                              color: Color(0xff4A3780),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        const Text(
-                          "Task Name",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                    // Add more TaskItem widgets here
+                  ],
+                ),
               ),
             ),
-            const Padding(padding: EdgeInsetsDirectional.all(20),
+            const Padding(
+              padding: EdgeInsetsDirectional.all(20),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -281,153 +166,57 @@ class MyToDoListState extends State<MyToDoList> {
                   ),
                 ),
               ),
-
             ),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    height: 80,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      color: Colors.white70,
-                      borderRadius: BorderRadius.circular(10),
+            const Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // Completed section
+                    TaskItem(
+                      taskName: "Game meetup",
+                      taskTime: "1:00 PM",
+                      completed: true,
+                      icon: Icons.event,
+                      iconColor: Color(0xffE7E2F3),
                     ),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.all(10),
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color(0xffDBECF6),
-                            ),
-                            child: const Icon(
-                              Icons.article_outlined,
-                              color: Color(0xff194A66),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        const Text(
-                          "Task Name",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                    TaskItem(
+                      taskName: "Take out trash",
+                      taskTime: "1:30 PM",
+                      completed: true,
+                      icon: Icons.article_outlined,
+                      iconColor: Color(0xffDBECF6),
                     ),
-                  ),
-                  Container(
-                    height: 80,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      color: Colors.white70,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.all(10),
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color(0xffFEF5D3),
-                            ),
-                            child: const Icon(
-                              Icons.emoji_events_outlined,
-                              color: Color(0xff403100),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        const Text(
-                          "Task Name",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                    // Add more completed TaskItem widgets here
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsetsDirectional.all(20),
+              child: SizedBox(
+                width: double.infinity, // Full width button
+                height: 50, // Fixed height
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AddNewTaskScreen()));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xff4A3780), // Button color
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25), // Rounded corners
                     ),
                   ),
-                  Container(
-                    height: 80,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      color: Colors.white70,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.all(10),
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color(0xffE7E2F3),
-                            ),
-                            child: const Icon(
-                              Icons.event,
-                              color: Color(0xff4A3780),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        const Text(
-                          "Task Name",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                  child: const Text(
+                    "Add new Task",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.all(20),
-                    child: SizedBox(
-                      width: double.infinity, // Makes the button take the full width
-                      height: 50, // Sets a fixed height for the button
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder:(context)=>  const AddNewTaskScreen()
-                          ));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff4A3780), // Set button color
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25), // Rounded corners
-                          ),
-                        ),
-                        child: const Text(
-                          "Add new Task",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           ],

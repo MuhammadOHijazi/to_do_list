@@ -173,8 +173,6 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              // ----------------------------------------------------------------
-              // TODO: make category get colored when it's picked
               Row(
                 children: [
                   const Padding(
@@ -426,7 +424,6 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
       });
     }
   }
-
   Future<void> selectTime() async {
     TimeOfDay? timePicked =
         await showTimePicker(context: context, initialTime: TimeOfDay.now());
