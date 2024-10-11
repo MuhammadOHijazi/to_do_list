@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DataBase {
-  static final DataBase _instance = DataBase._internal();
+class ToDoDataBase {
+  static final ToDoDataBase _instance = ToDoDataBase._internal();
   Database? _database;
 
-  DataBase._internal();
+  ToDoDataBase._internal();
 
-  factory DataBase() {
+  factory ToDoDataBase() {
     return _instance;
   }
 
@@ -20,13 +20,23 @@ class DataBase {
   Future<Database?> _initDatabase() async {
     return await openDatabase(
       'todo.db',
-      version: 1,
+      version: 2,
       onCreate: (database, version) async {
         if (kDebugMode) {
           print('Database created');
         }
         await database.execute(
-            'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, category TEXT, Date TEXT, Time TEXT, notes TEXT)');
+            'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, category TEXT, Date TEXT, Time TEXT, notes TEXT, status TEXT)');
+      },
+      onUpgrade: (db, oldVersion, newVersion) async {
+        if (oldVersion < newVersion) {
+          await db.execute('DROP TABLE IF EXISTS tasks');
+          await db.execute(
+              'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, category TEXT, Date TEXT, Time TEXT, notes TEXT, status TEXT)');
+          if (kDebugMode) {
+            print('Database upgraded and recreated');
+          }
+        }
       },
       onOpen: (database) {
         var value = getDataFromDatabase();
@@ -38,22 +48,23 @@ class DataBase {
   }
 
   Future insertToDatabase(String title, String category, String date,
-      String time, String notes) async {
+      String time, String notes, String status) async {
     final db = await database;
     return await db?.transaction((txn) async {
       await txn.rawInsert(
-          'INSERT INTO tasks(title, category, Date, Time, Notes) VALUES(?, ?, ?, ?, ?)',
-          [title, category, date, time, notes]);
+          'INSERT INTO tasks(title, category, Date, Time, Notes, status) VALUES(?, ?, ?, ?, ?, ?)',
+          [title, category, date, time, notes, status]); // Six values for six columns
     }).then((value) {
       if (kDebugMode) {
-        print("\n$value inserted it successfully \n");
+        print("\n$value inserted successfully\n");
       }
     }).catchError((error) {
       if (kDebugMode) {
-        print("\nThere was an error while creating is $error\n");
+        print("\nThere was an error while inserting: $error\n");
       }
     });
   }
+
 
   Future<void> getDataFromDatabase() async {
     final db = await database;  // Access the database instance
@@ -76,6 +87,7 @@ class DataBase {
       }
     }
   }
+
 
 
 }
