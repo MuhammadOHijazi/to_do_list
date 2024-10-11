@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_list/Shared/Components/upper_design.dart';
 import '../Shared/Components/task_item.dart';
 import 'add_new_task_screen.dart';
 
@@ -17,140 +18,29 @@ class MyToDoListState extends State<MyToDoList> {
 
   @override
   Widget build(BuildContext context) {
-    List monthList = [
-      "Month",
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
-    ];
-
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            // Header section (date and title)
-            Stack(
-              children: [
-                Container(
-                  height: 200,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Color(0xff4A3780),
-                    shape: BoxShape.rectangle,
+            upperDesign(),
+            Expanded(
+              // Wrap ListView in Expanded
+              child: Padding(
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 12),
+                child: ListView.separated(
+                  itemBuilder: (context, index) => const TaskItem(
+                    taskName: "Study lesson",
+                    taskTime: "4:00 PM",
+                    taskDate: "2024-10-15", // Pass the date here
+                    completed: false,
+                    category: "task", // Can be 'article', 'task', or 'goal'
                   ),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 20),
-                      Text(
-                        "${monthList[DateTime.now().month]} ${DateTime.now().day}, ${DateTime.now().year}",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.5,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      const Text(
-                        "My Todo List",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                  separatorBuilder: (context, index) => Container(
+                    width: double.infinity,
+                    height: 1.0,
+                    color: Colors.grey[300],
                   ),
-                ),
-                // Positioned circular decorations
-                Positioned(
-                  left: -100,
-                  bottom: -90,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        height: 200,
-                        width: 200,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white10,
-                        ),
-                      ),
-                      Container(
-                        height: 150,
-                        width: 150,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0xff4A3780),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Positioned(
-                  right: -50,
-                  top: -15,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        height: 100,
-                        width: 100,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white10,
-                        ),
-                      ),
-                      Container(
-                        height: 65,
-                        width: 65,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0xff4A3780),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    // Active tasks section
-                    TaskItem(
-                      taskName: "Study lesson",
-                      taskTime: "4:00 PM",
-                      completed: false,
-                      icon: Icons.article_outlined,
-                      iconColor: Color(0xffDBECF6),
-                    ),
-                    TaskItem(
-                      taskName: "Run 5k",
-                      taskTime: "5:00 PM",
-                      completed: false,
-                      icon: Icons.emoji_events_outlined,
-                      iconColor: Color(0xffFEF5D3),
-                    ),
-                    TaskItem(
-                      taskName: "Go to party",
-                      taskTime: "10:00 PM",
-                      completed: false,
-                      icon: Icons.event,
-                      iconColor: Color(0xffE7E2F3),
-                    ),
-                    // Add more TaskItem widgets here
-                  ],
+                  itemCount: 10,
                 ),
               ),
             ),
@@ -167,27 +57,24 @@ class MyToDoListState extends State<MyToDoList> {
                 ),
               ),
             ),
-            const Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    // Completed section
-                    TaskItem(
-                      taskName: "Game meetup",
-                      taskTime: "1:00 PM",
-                      completed: true,
-                      icon: Icons.event,
-                      iconColor: Color(0xffE7E2F3),
-                    ),
-                    TaskItem(
-                      taskName: "Take out trash",
-                      taskTime: "1:30 PM",
-                      completed: true,
-                      icon: Icons.article_outlined,
-                      iconColor: Color(0xffDBECF6),
-                    ),
-                    // Add more completed TaskItem widgets here
-                  ],
+            Expanded(
+              // Wrap ListView in Expanded
+              child: Padding(
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 12),
+                child: ListView.separated(
+                  itemBuilder: (context, index) => const TaskItem(
+                    taskName: "Study lesson",
+                    taskTime: "4:00 PM",
+                    taskDate: "2024-10-15", // Pass the date here
+                    completed: true,
+                    category: "article", // Can be 'article', 'task', or 'goal'
+                  ),
+                  separatorBuilder: (context, index) => Container(
+                    width: double.infinity,
+                    height: 1.0,
+                    color: Colors.grey[300],
+                  ),
+                  itemCount: 10,
                 ),
               ),
             ),
@@ -206,7 +93,8 @@ class MyToDoListState extends State<MyToDoList> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xff4A3780), // Button color
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25), // Rounded corners
+                      borderRadius:
+                          BorderRadius.circular(25), // Rounded corners
                     ),
                   ),
                   child: const Text(
