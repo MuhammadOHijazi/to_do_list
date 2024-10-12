@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/database.dart';
 import 'constant.dart';
 
 class TaskItem extends StatefulWidget {
   final String taskName;
   final String taskTime;
-  final String taskDate; // Added date field
+  final String taskDate;
   final bool completed;
   final String category;
 
@@ -13,7 +14,7 @@ class TaskItem extends StatefulWidget {
     super.key,
     required this.taskName,
     required this.taskTime,
-    required this.taskDate, // Added date to the constructor
+    required this.taskDate,
     required this.completed,
     required this.category,
   });
@@ -24,8 +25,7 @@ class TaskItem extends StatefulWidget {
 
 class _TaskItemState extends State<TaskItem> {
   late bool isCompleted;
-
-  // Method to get the icon based on the category
+    // Method to get the icon based on the category
   IconData getCategoryIcon(String category) {
     switch (category) {
       case "article":
@@ -70,7 +70,12 @@ class _TaskItemState extends State<TaskItem> {
   @override
   void initState() {
     super.initState();
-    isCompleted = widget.completed;
+    isCompleted = widget.completed; // Initialize with the current completion status
+  }
+
+  // Function to update task completion status in the database
+  Future<void> _updateCompletionStatus(bool newStatus) async {
+    await ToDoDataBase.instance.updateTaskCompletionByName(widget.taskName, newStatus);
   }
 
   @override
@@ -81,7 +86,7 @@ class _TaskItemState extends State<TaskItem> {
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
         color: isCompleted ? Colors.grey[200] : Colors.white70,
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
         children: [
@@ -112,44 +117,46 @@ class _TaskItemState extends State<TaskItem> {
                     fontSize: 18,
                     color: isCompleted ? Colors.grey : Colors.black,
                     fontWeight: FontWeight.bold,
-                    decoration: isCompleted
-                        ? TextDecoration.lineThrough
-                        : TextDecoration.none,
+                    decoration:
+                    isCompleted
+                    ? TextDecoration.lineThrough
+                    : TextDecoration.none,
                   ),
                 ),
-                const SizedBox(height: 5),
-                Row(
-                  children: [
-                    Text(
-                      widget.taskDate,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: isCompleted ? Colors.grey : Colors.black54,
-                      ),
-                    ),
-                    const SizedBox(width: 10,),
-                    Text(
-                      widget.taskTime,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: isCompleted ? Colors.grey : Colors.black54,
-                      ),
-                    ),
-                  ],
-                )
+            const SizedBox(height: 5),
+            Row(
+              children: [
+                Text(
+                  widget.taskDate,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: isCompleted ? Colors.grey : Colors.black54,
+                  ),
+                ),
+                const SizedBox(width: 10,),
+                Text(
+                  widget.taskTime,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: isCompleted ? Colors.grey : Colors.black54,
+                  ),
+                ),
               ],
             ),
-          ),
+        ],
+      ),
+    ),
           Checkbox(
             value: isCompleted,
             onChanged: (bool? value) {
               setState(() {
                 isCompleted = value ?? false;
+                _updateCompletionStatus(isCompleted); // Update the status in the database
               });
             },
           ),
-        ],
-      ),
+    ],
+    ),
     );
   }
-}
+  }

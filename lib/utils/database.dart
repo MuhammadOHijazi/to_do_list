@@ -2,13 +2,15 @@ import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ToDoDataBase {
-  static final ToDoDataBase _instance = ToDoDataBase._internal();
+  static final ToDoDataBase instance = ToDoDataBase._internal();
   Database? _database;
+
+  static var get;
 
   ToDoDataBase._internal();
 
   factory ToDoDataBase() {
-    return _instance;
+    return instance;
   }
 
   Future<Database?> get database async {
@@ -26,14 +28,17 @@ class ToDoDataBase {
           print('Database created');
         }
         await database.execute(
-            'CREATE TABLE tasks (id INTEGER PRIMARY KEY,'' taskName TEXT,'' category TEXT,'' taskDate TEXT,'' taskTime TEXT,'' notes TEXT,''completed TEXT)'
+            'CREATE TABLE tasks (id INTEGER PRIMARY KEY, taskName TEXT, category TEXT, taskDate TEXT, taskTime TEXT, notes TEXT, completed INTEGER)'
         );
+
       },
       onUpgrade: (db, oldVersion, newVersion) async {
         if (oldVersion < newVersion) {
           await db.execute('DROP TABLE IF EXISTS tasks');
           await db.execute(
-              'CREATE TABLE tasks (id INTEGER PRIMARY KEY,'' taskName TEXT,'' category TEXT,'' taskDate TEXT,'' taskTime TEXT,'' notes TEXT,''completed TEXT)');
+              'CREATE TABLE tasks (id INTEGER PRIMARY KEY, taskName TEXT, category TEXT, taskDate TEXT, taskTime TEXT, notes TEXT, completed INTEGER)'
+          );
+
           if (kDebugMode) {
             print('Database upgraded and recreated');
           }
@@ -49,7 +54,8 @@ class ToDoDataBase {
   }
 
   Future insertToDatabase(String title, String category, String date,
-      String time, String notes, String status) async {
+      String time, String notes, String status) async
+  {
     final db = await database;
     return await db?.transaction((txn) async {
       await txn.rawInsert(
@@ -94,4 +100,16 @@ class ToDoDataBase {
       }
     }
   }
+
+  Future updateTaskCompletionByName(String taskName, bool completed) async {
+    final db = await instance.database;
+
+    return db?.update(
+      'tasks',
+      {'completed': completed ? 1 : 0}, // Store completed as 1 or 0 (boolean)
+      where: 'taskName = ?',  // Use correct column name (taskName)
+      whereArgs: [taskName],
+    );
+  }
+
 }
