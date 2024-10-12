@@ -54,19 +54,17 @@ class MyToDoListState extends State<MyToDoList> {
                 child: ListView.separated(
                   itemBuilder: (context, index) {
                     final task = tasks[index];
-                    // ToDo: Fix the TaskItem completed issue
-                    return TaskItem(
-                      taskName: task['taskName'],
-                      taskTime: task['taskTime'],
-                      taskDate: task['taskDate'],
-                      completed: false,
-                      category: task['category'],
-                    );
-                    // if (task['completed'] == "1") {
-                    //
-                    // } else {
-                    //   return const SizedBox.shrink();
-                    // }
+                    if (task['completed'] == 0) {
+                      return TaskItem(
+                        taskName: task['taskName'],
+                        taskTime: task['taskTime'],
+                        taskDate: task['taskDate'],
+                        completed: task['completed'] == 1 ? true : false,
+                        category: task['category'],
+                      );
+                    } else {
+                      return const SizedBox.shrink();
+                    }
                   },
                   separatorBuilder: (context, index) => Container(
                     width: double.infinity,
@@ -97,19 +95,17 @@ class MyToDoListState extends State<MyToDoList> {
                   itemBuilder: (context, index) {
                     // Filter and show only completed tasks
                     final task = tasks[index];
-                    // ToDo: Fix the TaskItem completed issue
-                    return TaskItem(
-                      taskName: task['taskName'],
-                      taskTime: task['taskTime'],
-                      taskDate: task['taskDate'],
-                      completed: true,
-                      category: task['category'],
-                    );
-                    // if (task['completed'] == "1") {
-                    //
-                    // } else {
-                    //   return const SizedBox.shrink();
-                    // }
+                    if (task['completed'] == 1) {
+                      return TaskItem(
+                        taskName: task['taskName'],
+                        taskTime: task['taskTime'],
+                        taskDate: task['taskDate'],
+                        completed: task['completed'] == 1 ? true : false,
+                        category: task['category'],
+                      );
+                    } else {
+                      return const SizedBox.shrink();
+                    }
                   },
                   separatorBuilder: (context, index) => Container(
                     width: double.infinity,
