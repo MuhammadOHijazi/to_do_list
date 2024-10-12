@@ -6,7 +6,6 @@ class ToDoDataBase {
   Database? _database;
 
   static var get;
-
   ToDoDataBase._internal();
 
   factory ToDoDataBase() {

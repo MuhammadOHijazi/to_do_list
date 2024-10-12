@@ -34,7 +34,7 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                   Container(
                     height: 100,
                     width: double.infinity,
-                    decoration:  BoxDecoration(
+                    decoration: BoxDecoration(
                       color: primaryColor,
                       shape: BoxShape.rectangle,
                     ),
@@ -69,7 +69,7 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                         Container(
                           height: 150,
                           width: 150,
-                          decoration:  BoxDecoration(
+                          decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: primaryColor,
                           ),
@@ -94,7 +94,7 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                         Container(
                           height: 65,
                           width: 65,
-                          decoration:  BoxDecoration(
+                          decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: primaryColor,
                           ),
@@ -114,7 +114,7 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                                 color: Colors.white,
                               ),
                               child: IconButton(
-                                icon:  Icon(
+                                icon: Icon(
                                   Icons.close,
                                   color: primaryColor,
                                 ),
@@ -234,7 +234,7 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                           : Colors.white,
                       shape: const CircleBorder(),
                     ),
-                    child:  Icon(
+                    child: Icon(
                       Icons.emoji_events_outlined,
                       color: eventColor,
                     ),
@@ -266,7 +266,7 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5),
                                 ),
-                                focusedBorder:  OutlineInputBorder(
+                                focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                   color: primaryColor,
                                   width: 3,
@@ -316,7 +316,7 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5),
                                 ),
-                                focusedBorder:  OutlineInputBorder(
+                                focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                   color: primaryColor,
                                   width: 3,
@@ -349,7 +349,7 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                   maxLines: 10,
                   decoration: InputDecoration(
                     hintText: "Notes",
-                    focusedBorder:  OutlineInputBorder(
+                    focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                       color: primaryColor,
                       width: 3,
@@ -386,16 +386,14 @@ class AddNewTaskScreenState extends State<AddNewTaskScreen> {
                           await ToDoDataBase().getDataFromDatabase();
                         });
                       }
-                      setState(() {
-                      });
+                      setState(() {});
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const MyToDoList()));
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                           primaryColor, // Set button color
+                      backgroundColor: primaryColor, // Set button color
                       shape: RoundedRectangleBorder(
                         borderRadius:
                             BorderRadius.circular(25), // Rounded corners
