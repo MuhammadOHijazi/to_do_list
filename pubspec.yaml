@@ -39,6 +39,33 @@ dependencies:
   sqflite: ^2.4.0
   bloc: ^8.1.4
   flutter_bloc: ^8.1.6
+  flutter_launcher_icons: ^0.14.1
+
+flutter_launcher_icons:
+  #  image_path: "assets/images/todo.png"
+  image_path_android: "assets/images/todo.png"
+  image_path_ios: "assets/images/todo.png"
+  android: true # can specify file name here e.g. "ic_launcher"
+  ios: true # can specify file name here e.g. "My-Launcher-Icon"
+  adaptive_icon_background: "assets/images/todo.png" # only available for Android 8.0 devices and above
+  adaptive_icon_foreground: "assets/images/todo.png" # only available for Android 8.0 devices and above
+  adaptive_icon_foreground_inset: 16 # only available for Android 8.0 devices and above
+  adaptive_icon_monochrome: "assets/images/todo.png" # only available for Android 13 devices and above
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  remove_alpha_ios: true
+  background_color_ios: "#4A3780"
+  web:
+    generate: true
+    image_path: "assets/images/todo.png"
+    background_color: "4A3780"
+    theme_color: "4A3780"
+  windows:
+    generate: true
+    image_path: "assets/images/todo.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/images/todo.png"
 
 dev_dependencies:
   flutter_test:
