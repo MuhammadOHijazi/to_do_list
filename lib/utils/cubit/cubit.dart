@@ -22,6 +22,7 @@ class ToDoCubit extends Cubit<ToDoStates> {
         ? ToDoCompletedState(completed!)
         : ToDoNotCompletedState(completed!));
 
+    emit(ToDoLoadingState());
     // Update completion status in the database
     await ToDoDataBase.instance.updateTaskCompletionByName(taskName, newStatus);
   }
@@ -37,7 +38,7 @@ class ToDoCubit extends Cubit<ToDoStates> {
     );
 
     // Fetch all tasks from the 'tasks' table
-    final List<Map<String, dynamic>> taskData = await db.query('tasks');
+    final List<Map<String, dynamic>> taskData = await ToDoDataBase().getDataFromDatabase();
 
     tasks = taskData;
 

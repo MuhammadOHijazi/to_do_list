@@ -65,7 +65,6 @@ class TaskItem extends StatelessWidget {
       create: (BuildContext context) => ToDoCubit()..initializeCompletion(completed),
       child: BlocConsumer<ToDoCubit, ToDoStates>(
         listener: (context, state) {
-          ToDoCubit.get(context).loadTasksFromDatabase();
         },
         builder: (context, state) {
           var cubit = ToDoCubit.get(context);
@@ -144,6 +143,7 @@ class TaskItem extends StatelessWidget {
                   onChanged: (bool? value) {
                     if (value != null) {
                       cubit.toggleCompletion(taskName, value);
+                       cubit.loadTasksFromDatabase();
                     }
                   },
                 ),
