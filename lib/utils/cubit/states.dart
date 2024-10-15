@@ -21,4 +21,3 @@ class ToDoLoadedState extends ToDoStates {
 
   ToDoLoadedState(this.tasks);
 }
-

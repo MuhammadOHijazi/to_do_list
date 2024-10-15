@@ -5,7 +5,6 @@ class ToDoDataBase {
   static final ToDoDataBase instance = ToDoDataBase._internal();
   Database? _database;
 
-  static var get;
   ToDoDataBase._internal();
 
   factory ToDoDataBase() {
@@ -21,7 +20,7 @@ class ToDoDataBase {
   Future<Database?> _initDatabase() async {
     return await openDatabase(
       'todo.db',
-      version: 3,
+      version: 4,
       onCreate: (database, version) async {
         if (kDebugMode) {
           print('Database created');
@@ -29,7 +28,6 @@ class ToDoDataBase {
         await database.execute(
             'CREATE TABLE tasks (id INTEGER PRIMARY KEY, taskName TEXT, category TEXT, taskDate TEXT, taskTime TEXT, notes TEXT, completed INTEGER)'
         );
-
       },
       onUpgrade: (db, oldVersion, newVersion) async {
         if (oldVersion < newVersion) {
@@ -43,8 +41,8 @@ class ToDoDataBase {
           }
         }
       },
-      onOpen: (database) {
-        var value = getDataFromDatabase();
+      onOpen: (database) async {
+        var value = await getDataFromDatabase(); // Await the future properly
         if (kDebugMode) {
           print('Database opened\n $value\n');
         }
@@ -52,9 +50,7 @@ class ToDoDataBase {
     );
   }
 
-  Future insertToDatabase(String title, String category, String date,
-      String time, String notes, String status) async
-  {
+  Future<void> insertToDatabase(String title, String category, String date, String time, String notes, String status) async {
     final db = await database;
     return await db?.transaction((txn) async {
       await txn.rawInsert(
@@ -78,37 +74,43 @@ class ToDoDataBase {
     });
   }
 
-  Future<void> getDataFromDatabase() async {
+  // Make sure this method returns List<Map<String, dynamic>> to match expectations
+  Future<List<Map<String, dynamic>>> getDataFromDatabase() async {
     final db = await database; // Access the database instance
-    if (db != null) {
-      List<Map>? tasks = await db.rawQuery('SELECT * FROM tasks');
+    try {
+      if (db == null) {
+        throw Exception("Database is not initialized.");
+      }
+
+      // Query the tasks from the 'tasks' table
+      List<Map<String, dynamic>> tasks = await db.rawQuery('SELECT * FROM tasks');
+
       if (tasks.isNotEmpty) {
-        for (var task in tasks) {
-          if (kDebugMode) {
-            print("Task: $task");
-          }
+        if (kDebugMode) {
+          print("Tasks loaded from the database: ${tasks.length}");
         }
+        return tasks;
       } else {
         if (kDebugMode) {
           print("No tasks found in the database.");
         }
+        return [];
       }
-    } else {
+    } catch (e) {
       if (kDebugMode) {
-        print("Database is not initialized.");
+        print('Error loading tasks from the database: $e');
       }
+      return [];
     }
   }
 
-  Future updateTaskCompletionByName(String taskName, bool completed) async {
+  Future<void> updateTaskCompletionByName(String taskName, bool completed) async {
     final db = await instance.database;
-
-    return db?.update(
+    await db?.update(
       'tasks',
       {'completed': completed ? 1 : 0}, // Store completed as 1 or 0 (boolean)
       where: 'taskName = ?',  // Use correct column name (taskName)
       whereArgs: [taskName],
     );
   }
-
 }

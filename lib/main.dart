@@ -1,8 +1,12 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:to_do_list/utils/cubit/bloc_observer.dart';
 import 'modules/my_to_do_list_screen.dart';
 
-void main() async{
+void main(){
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
+
 }
 
 class MyApp extends StatefulWidget {
